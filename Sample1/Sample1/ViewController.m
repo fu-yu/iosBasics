@@ -10,6 +10,8 @@
 
 @implementation ViewController
 
+#define ToDoItemKey @"TODOITEMKEY"
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -97,12 +99,26 @@
     [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
     [localNotification setHasAction:NO];
     [localNotification setAlertBody:@"おはよー"];
+    
+    //起動時の画像をセット？
+//    [localNotification setAlertLaunchImage:<#(NSString *)#>
     [localNotification setSoundName:UILocalNotificationDefaultSoundName];
     
+    //カスタムメッセージ
+    NSDictionary *infoDict = [NSDictionary dictionaryWithObjectsAndKeys:@"dictionaryあいてむ",ToDoItemKey, nil];
+    [localNotification setUserInfo:infoDict];
+    
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    [localNotification release];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"設定しました" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
+}
+
+- (void)displayItem:(NSString *)itemString 
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"カスタムメッセージ" message:itemString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 @end

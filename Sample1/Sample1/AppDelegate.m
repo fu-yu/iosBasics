@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  Sample1
+//  LocalNotification の basic 
 //
 //  Created by 藤井 裕子 on 12/01/29.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
@@ -15,12 +15,15 @@
 @synthesize window = _window;
 @synthesize viewController = _viewController;
 
+#define ToDoItemKey @"TODOITEMKEY"
+
 - (void)dealloc
 {
     [_window release];
     [_viewController release];
     [super dealloc];
 }
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -29,12 +32,13 @@
     self.viewController = [[ViewController alloc] init];
     self.window.rootViewController = self.viewController;
     
+    //アプリがフォアグラウンドで動作中でないときに通知が配信
     UILocalNotification *localNotif =
     [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     if (localNotif) {
-        //        NSString *itemName = [localNotif.userInfo objectForKey:ToDoItemKey];
-        //[self.viewController displayItem:itemName];  // custom method
-        //起動したときについていたバッジをけす
+        NSString *itemName = [localNotif.userInfo objectForKey:ToDoItemKey];
+        [self.viewController displayItem:itemName]; // custom method
+        //落ちやすくなるような
         application.applicationIconBadgeNumber =0;
     }
     [self.window makeKeyAndVisible];
@@ -83,7 +87,10 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification 
 {
+    //アプリがフォアグラウンドで動作中に通知が配信された場合
     if (notification) {
+        NSString *itemName = [notification.userInfo objectForKey:ToDoItemKey];
+        [self.viewController displayItem:itemName]; // custom method
         application.applicationIconBadgeNumber =0;
     }
     

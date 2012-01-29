@@ -11,4 +11,5 @@
 @interface ViewController : UIViewController
 
 - (UIButton*)makeUIButton:(CGRect)rect text:(NSString *)text tag:(int)tag;
+- (void)displayItem:(NSString *)itemString ;
 @end
