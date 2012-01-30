@@ -31,6 +31,7 @@
     // Override point for customization after application launch.
     self.viewController = [[ViewController alloc] init];
     self.window.rootViewController = self.viewController;
+
     
     //アプリがフォアグラウンドで動作中でないときに通知が配信
     UILocalNotification *localNotif =
@@ -93,6 +94,8 @@
         [self.viewController displayItem:itemName]; // custom method
         application.applicationIconBadgeNumber =0;
     }
+    //起動時間をゆっくり
+    sleep(3);
     
 }
 

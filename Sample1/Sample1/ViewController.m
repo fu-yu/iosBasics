@@ -100,8 +100,10 @@
     [localNotification setHasAction:NO];
     [localNotification setAlertBody:@"おはよー"];
     
-    //起動時の画像をセット？
-//    [localNotification setAlertLaunchImage:<#(NSString *)#>
+    //起動時の画像をセット
+    //http://retinawallpaper.com/
+    //http://www.alliphonewallpapers.com/
+    [localNotification setAlertLaunchImage:@"6o53pjaap.jpg"];
     [localNotification setSoundName:UILocalNotificationDefaultSoundName];
     
     //カスタムメッセージ
